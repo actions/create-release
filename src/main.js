@@ -10,13 +10,13 @@ async function run() {
     const { owner, repo } = context.repo;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    const tag_name = core.getInput('tag_name', { required: true });
+    const tagName = core.getInput('tag_name', { required: true });
     // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
-    const tag = tag_name.replace('refs/tags/', '');
+    const tag = tagName.replace('refs/tags/', '');
     // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
-    const release_name = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
-    const draft = core.getInput('draft', { required: false }) === 'true' ? true : false;
-    const prerelease = core.getInput('prerelease', { required: false }) === 'true' ? true : false;
+    const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
+    const draft = core.getInput('draft', { required: false }) === 'true';
+    const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
@@ -25,19 +25,20 @@ async function run() {
       owner,
       repo,
       tag_name: tag,
-      name: release_name,
+      name: releaseName,
       draft,
       prerelease
     });
 
     // Get the ID, html_url, and upload URL for the created Release from the response
-    const { data: { id: release_id, html_url, upload_url } } = createReleaseResponse;
+    const {
+      data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
+    } = createReleaseResponse;
 
     // Set the output variables for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    core.setOutput('id', release_id);
-    core.setOutput('html_url', html_url);
-    core.setOutput('upload_url', upload_url);
-
+    core.setOutput('id', releaseId);
+    core.setOutput('html_url', htmlUrl);
+    core.setOutput('upload_url', uploadUrl);
   } catch (error) {
     core.setFailed(error.message);
   }
