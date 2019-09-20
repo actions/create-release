@@ -4,8 +4,8 @@
   "description": "Generate a release",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint 'src/**.js' 'test/**.js' --fix",
-    "test": "eslint 'src/**.js' 'test/**.js' --fix && jest",
+    "lint": "eslint 'src/**.js' 'tests/**.js' --fix",
+    "test": "eslint 'src/**.js' 'tests/**.js' --fix && jest",
     "build": "ncc build src/main.js",
     "precommit": "npm run build && git add dist/"
   },
