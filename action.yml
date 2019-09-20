@@ -1,0 +1,31 @@
+name: 'Create a Release'
+description: 'Create a release on your repository'
+author: 'GitHub'
+inputs:
+  tag_name:
+    description: 'The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag'
+    required: true
+  release_name:
+    description: 'The name of the release. For example, `Release v1.0.1`'
+    required: true
+  draft:
+    description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'
+    required: false
+    default: false
+  prerelease:
+    description: '`true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`'
+    required: false
+    default: false
+outputs:
+  id:
+    description: 'The ID of the created Release'
+  html_url:
+    description: 'The URL users can navigate to in order to view the release'
+  upload_url:
+    description: 'The URL for uploading assets to the release'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'tag'
+  color: 'gray-dark'
