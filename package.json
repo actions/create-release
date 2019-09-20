@@ -1,8 +1,7 @@
 {
   "name": "create-release",
   "version": "1.0.0",
-  "private": true,
-  "description": "Generate a release and upload build artifacts",
+  "description": "Generate a release",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint 'src/**.js' 'test/**.js' --fix",

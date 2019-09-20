@@ -1,0 +1,15 @@
+name: "Tests"
+
+on:
+  pull_request:
+  push:
+    branches:         # array of glob patterns matching against refs/heads. Optional; defaults to all
+      - master          # triggers on pushes that contain changes in master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - run: npm test
