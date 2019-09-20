@@ -5,8 +5,10 @@
   "description": "Generate a release and upload build artifacts",
   "main": "dist/index.js",
   "scripts": {
+    "lint": "eslint 'src/**.js' 'test/**.js' --fix",
+    "test": "eslint 'src/**.js' 'test/**.js' --fix && jest",
     "build": "ncc build src/main.js",
-    "test": "jest"
+    "precommit": "npm run build && git add dist/"
   },
   "repository": {
     "type": "git",
@@ -24,8 +26,16 @@
     "@actions/github": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.0.4",
     "@zeit/ncc": "^0.20.4",
-    "typescript": "^3.5.1"
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.8.0",
+    "prettier": "^1.16.4",
+    "husky": "^3.0.5"
   }
 }
