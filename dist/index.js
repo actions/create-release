@@ -378,7 +378,7 @@ module.exports._enoent = enoent;
 /***/ }),
 
 /***/ 31:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
 const { GitHub, context } = __webpack_require__(469);
@@ -426,7 +426,11 @@ async function run() {
   }
 }
 
-run();
+module.exports = run;
+
+if (require.main === require.cache[eval('__filename')]) {
+  run();
+}
 
 
 /***/ }),

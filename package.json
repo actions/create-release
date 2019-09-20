@@ -36,5 +36,19 @@
     "jest": "^24.8.0",
     "prettier": "^1.16.4",
     "husky": "^3.0.5"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/main.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
   }
 }

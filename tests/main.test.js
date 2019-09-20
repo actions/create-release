@@ -1,2 +1,6 @@
 /* eslint-disable no-undef */
-test('that tests work', () => {});
+describe('Create release', () => {
+  test('Create release endpoint is called', async () => {});
+
+  test('Outputs are set', async () => {});
+});
