@@ -6,7 +6,7 @@ const { GitHub, context } = require('@actions/github');
 const run = require('../src/main.js');
 
 /* eslint-disable no-undef */
-describe('module', () => {
+describe('Create Release', () => {
   let createRelease;
 
   beforeEach(() => {
