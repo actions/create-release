@@ -136,6 +136,7 @@ describe('Create Release', () => {
     expect(core.setOutput).toHaveBeenNthCalledWith(1, 'id', 'releaseId');
     expect(core.setOutput).toHaveBeenNthCalledWith(2, 'html_url', 'htmlUrl');
     expect(core.setOutput).toHaveBeenNthCalledWith(3, 'upload_url', 'uploadUrl');
+    expect(core.setOutput).toHaveBeenNthCalledWith(4, 'tag', 'v1.0.0');
   });
 
   test('Action fails elegantly', async () => {
