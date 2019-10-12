@@ -26,6 +26,7 @@ For more information on these outputs, see the [API Documentation](https://devel
 - `id`: The release ID
 - `html_url`: The URL users can navigate to in order to view the release. i.e. `https://github.com/octocat/Hello-World/releases/v1.0.0`
 - `upload_url`: The URL for uploading assets to the release, which could be used by GitHub Actions for additional uses, for example the [`@actions/upload-release-asset`](https://www.github.com/actions/upload-release-asset) GitHub Action
+- `tag`: The simple tag name
 
 ### Example workflow - create a release
 On every `push` to a tag matching the pattern `v*`, [create a release](https://developer.github.com/v3/repos/releases/#create-a-release):
