@@ -8,6 +8,10 @@ inputs:
   release_name:
     description: 'The name of the release. For example, `Release v1.0.1`'
     required: true
+  replace_old_tag:
+    description: 'Whether to delete an older tag (not for this commit) if the same tag name is found'
+    required: false
+    default: false
   draft:
     description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'
     required: false
