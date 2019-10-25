@@ -7878,7 +7878,6 @@ async function run() {
           ref: `tags/${tag}`
         });
 
-        console.log(getRefResponse);
         const refSha = getRefResponse.data.object.sha;
         if (refSha !== process.env.GITHUB_SHA) {
           // Delete the tag and release associated with this release
