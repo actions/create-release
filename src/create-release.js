@@ -19,6 +19,8 @@ async function run() {
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
+    let responseData = null;
+
     if (replaceOldTag) {
       // Check to see if we need to replace an older release
 
@@ -31,19 +33,22 @@ async function run() {
           repo,
           ref: `tags/${tag}`
         });
-
         const refSha = getRefResponse.data.object.sha;
-        if (refSha !== process.env.GITHUB_SHA) {
-          // Delete the tag and release associated with this release
 
-          // Get a release by tag name
-          // API Documentation: https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
-          // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
-          const getReleaseResponse = await github.repos.getReleaseByTag({
-            owner,
-            repo,
-            tag
-          });
+        // Get a release by tag name
+        // API Documentation: https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
+        const getReleaseResponse = await github.repos.getReleaseByTag({
+          owner,
+          repo,
+          tag
+        });
+
+        if (refSha === process.env.GITHUB_SHA) {
+          // We don't need to bother with creating a release because it's already created
+          responseData = getReleaseResponse;
+        } else {
+          // Delete the tag and release associated with this release
 
           const releaseId = getReleaseResponse.data.id;
 
@@ -75,22 +80,24 @@ async function run() {
       }
     }
 
-    // Create a release
-    // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
-    // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
-    const createReleaseResponse = await github.repos.createRelease({
-      owner,
-      repo,
-      tag_name: tag,
-      name: releaseName,
-      draft,
-      prerelease
-    });
+    if (!responseData) {
+      // Create a release
+      // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
+      // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
+      responseData = await github.repos.createRelease({
+        owner,
+        repo,
+        tag_name: tag,
+        name: releaseName,
+        draft,
+        prerelease
+      });
+    }
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
       data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
-    } = createReleaseResponse;
+    } = responseData;
 
     // Set the output variables for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('id', releaseId);
