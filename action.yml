@@ -1,5 +1,5 @@
 name: 'Create a Release'
-description: 'Create a release on your repository'
+description: 'Create a release for a tag in your repository'
 author: 'GitHub'
 inputs:
   tag_name:
