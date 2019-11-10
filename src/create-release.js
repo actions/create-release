@@ -27,7 +27,7 @@ async function run() {
       name: releaseName,
       draft,
       prerelease
-    }
+    };
 
     if (targetCommitish) {
       params.target_commitish = targetCommitish;
