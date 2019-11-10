@@ -19,18 +19,24 @@ async function run() {
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
-    // Create a release
-    // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
-    // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
-    const createReleaseResponse = await github.repos.createRelease({
+    // Create the release params object
+    const params = {
       owner,
       repo,
       tag_name: tag,
       name: releaseName,
-      target_commitish: targetCommitish,
       draft,
       prerelease
-    });
+    }
+
+    if (targetCommitish) {
+      params.target_commitish = targetCommitish;
+    }
+
+    // Create a release
+    // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
+    // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
+    const createReleaseResponse = await github.repos.createRelease(params);
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
