@@ -15,6 +15,7 @@ async function run() {
     // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
     const tag = tagName.replace('refs/tags/', '');
     const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
+    const targetCommitish = core.getInput('target_commitish', { required: false });
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
@@ -26,6 +27,7 @@ async function run() {
       repo,
       tag_name: tag,
       name: releaseName,
+      target_commitish: targetCommitish,
       draft,
       prerelease
     });
