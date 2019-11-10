@@ -12,6 +12,7 @@ For more information on these inputs, see the [API Documentation](https://develo
 
 - `tag_name`: The name of the tag for this release
 - `release_name`: The name of the release
+- `target_commitish`: The branch or commit SHA. Default: `none`
 - `draft`: `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
 - `prerelease`: `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default `false`
 
@@ -49,6 +50,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          target_commitish: master # This can be any branch or commit SHA
           draft: false
           prerelease: false
 ```
