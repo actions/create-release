@@ -8,6 +8,9 @@ inputs:
   release_name:
     description: 'The name of the release. For example, `Release v1.0.1`'
     required: true
+  target_commitish:
+    description: 'The target commit for the tag'
+    required: false
   draft:
     description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'
     required: false
