@@ -9,7 +9,7 @@ inputs:
     description: 'The name of the release. For example, `Release v1.0.1`'
     required: true
   body:
-    description: 'The body test of the release.'
+    description: 'The body text of the release.'
     required: false
     default: ''
   draft:
