@@ -38,6 +38,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
@@ -49,6 +50,7 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: 'myBody',
+      target_commitish: 'master',
       draft: false,
       prerelease: false
     });
@@ -60,6 +62,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('true')
       .mockReturnValueOnce('false');
 
@@ -71,6 +74,7 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: 'myBody',
+      target_commitish: 'master',
       draft: true,
       prerelease: false
     });
@@ -82,6 +86,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('true');
 
@@ -93,6 +98,7 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: 'myBody',
+      target_commitish: 'master',
       draft: false,
       prerelease: true
     });
@@ -104,6 +110,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('') // <-- The default value for body in action.yml
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
@@ -115,6 +122,30 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: '',
+      target_commitish: 'master',
+      draft: false,
+      prerelease: false
+    });
+  });
+
+  test('Release with empty target commitish is created', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false');
+
+    await run();
+
+    expect(createRelease).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo',
+      tag_name: 'v1.0.0',
+      name: 'myRelease',
+      body: 'myBody',
+      target_commitish: '',
       draft: false,
       prerelease: false
     });
@@ -126,6 +157,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
@@ -144,6 +176,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('master')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
