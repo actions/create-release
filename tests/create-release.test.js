@@ -37,6 +37,7 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
@@ -47,6 +48,7 @@ describe('Create Release', () => {
       repo: 'repo',
       tag_name: 'v1.0.0',
       name: 'myRelease',
+      body: 'myBody',
       draft: false,
       prerelease: false
     });
@@ -57,6 +59,7 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
       .mockReturnValueOnce('true')
       .mockReturnValueOnce('false');
 
@@ -67,6 +70,7 @@ describe('Create Release', () => {
       repo: 'repo',
       tag_name: 'v1.0.0',
       name: 'myRelease',
+      body: 'myBody',
       draft: true,
       prerelease: false
     });
@@ -77,6 +81,7 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('true');
 
@@ -87,8 +92,31 @@ describe('Create Release', () => {
       repo: 'repo',
       tag_name: 'v1.0.0',
       name: 'myRelease',
+      body: 'myBody',
       draft: false,
       prerelease: true
+    });
+  });
+
+  test('Release with empty body is created', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('') // <-- The default value for body in action.yml
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false');
+
+    await run();
+
+    expect(createRelease).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo',
+      tag_name: 'v1.0.0',
+      name: 'myRelease',
+      body: '',
+      draft: false,
+      prerelease: false
     });
   });
 
@@ -97,6 +125,7 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 
@@ -114,6 +143,7 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false');
 

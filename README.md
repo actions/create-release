@@ -5,13 +5,14 @@ This GitHub Action (written in JavaScript) wraps the [GitHub Release API](https:
 
 ## Usage
 ### Pre-requisites
-Create a workflow `.yml` file in your repositories `.github/workflows` directory. An [example workflow](#example-workflow---create-a-release) is available below. For more information, reference the GitHub Help Documentation for [Creating a workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
+Create a workflow `.yml` file in your `.github/workflows` directory. An [example workflow](#example-workflow---create-a-release) is available below. For more information, reference the GitHub Help Documentation for [Creating a workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
 
 ### Inputs
 For more information on these inputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#input)
 
 - `tag_name`: The name of the tag for this release
 - `release_name`: The name of the release
+- `body`: Text describing the contents of the release
 - `target_commitish`: The branch or commit SHA. Default: `none`
 - `draft`: `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
 - `prerelease`: `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default `false`
@@ -44,12 +45,16 @@ jobs:
         uses: actions/checkout@master
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1.0.0
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
           target_commitish: master # This can be any branch or commit SHA
           draft: false
           prerelease: false
