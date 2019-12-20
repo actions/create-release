@@ -10,9 +10,8 @@ async function findRelease(github, owner, repo, tagName) {
   return releases.find(release => {
     if (release.tag_name === tagName) {
       if (release.draft || release.prerelease) {
-        return false;
+        return true;
       }
-      return true;
     }
     return false;
   });
