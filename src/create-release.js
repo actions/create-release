@@ -1,6 +1,23 @@
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
 
+async function findRelease(github, owner, repo, tagName) {
+  const resp = await github.repos.listReleases({
+    owner,
+    repo
+  });
+  const releases = resp.data;
+  return releases.find(release => {
+    if (release.tag_name === tagName) {
+      if (release.draft || release.prerelease) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  });
+}
+
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
@@ -19,23 +36,38 @@ async function run() {
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
-    // Create a release
-    // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
-    // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
-    const createReleaseResponse = await github.repos.createRelease({
-      owner,
-      repo,
-      tag_name: tag,
-      name: releaseName,
-      body,
-      draft,
-      prerelease
-    });
+    let release = await findRelease(github, owner, repo, tag);
+    if (!release) {
+      // Create a release
+      // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
+      // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
+      release = await github.repos.createRelease({
+        owner,
+        repo,
+        tag_name: tag,
+        name: releaseName,
+        body,
+        draft,
+        prerelease
+      });
+    } else {
+      const releaseId = release.id;
+      await github.repos.updateRelease({
+        owner,
+        repo,
+        release_id: releaseId,
+        tag_name: tag,
+        name: releaseName,
+        body,
+        draft,
+        prerelease
+      });
+    }
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
       data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
-    } = createReleaseResponse;
+    } = release;
 
     // Set the output variables for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('id', releaseId);

@@ -8,6 +8,7 @@ const run = require('../src/create-release.js');
 /* eslint-disable no-undef */
 describe('Create Release', () => {
   let createRelease;
+  let listReleases;
 
   beforeEach(() => {
     createRelease = jest.fn().mockReturnValueOnce({
@@ -17,6 +18,15 @@ describe('Create Release', () => {
         upload_url: 'uploadUrl'
       }
     });
+    listReleases = jest.fn().mockReturnValueOnce({
+      data: [
+        {
+          id: 'releaseId',
+          html_url: 'htmlUrl',
+          upload_url: 'uploadUrl'
+        }
+      ]
+    });
 
     context.repo = {
       owner: 'owner',
@@ -25,7 +35,8 @@ describe('Create Release', () => {
 
     const github = {
       repos: {
-        createRelease
+        createRelease,
+        listReleases
       }
     };
 
@@ -51,6 +62,23 @@ describe('Create Release', () => {
       body: 'myBody',
       draft: false,
       prerelease: false
+    });
+  });
+
+  test('List release endpoint is called', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false');
+
+    await run();
+
+    expect(listReleases).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo'
     });
   });
 
