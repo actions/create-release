@@ -51,7 +51,7 @@ async function run() {
       });
     } else {
       const releaseId = release.id;
-      await github.repos.updateRelease({
+      release = await github.repos.updateRelease({
         owner,
         repo,
         release_id: releaseId,

@@ -203,6 +203,8 @@ describe('Update Release', () => {
         id: 'releaseId',
         owner: 'owner',
         repo: 'repo',
+        html_url: 'htmlUrl',
+        upload_url: 'uploadUrl',
         tag_name: 'v1.0.0',
         name: 'myRelease',
         body: 'myBody',
@@ -278,5 +280,23 @@ describe('Update Release', () => {
       draft: true,
       prerelease: false
     });
+  });
+
+  test('Outputs are set', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('true')
+      .mockReturnValueOnce('false');
+
+    core.setOutput = jest.fn();
+
+    await run();
+
+    expect(core.setOutput).toHaveBeenNthCalledWith(1, 'id', 'releaseId');
+    expect(core.setOutput).toHaveBeenNthCalledWith(2, 'html_url', 'htmlUrl');
+    expect(core.setOutput).toHaveBeenNthCalledWith(3, 'upload_url', 'uploadUrl');
   });
 });
