@@ -9,7 +9,7 @@ async function findRelease(github, owner, repo, tagName) {
   const releases = resp.data;
   return releases.find(release => {
     if (release.tag_name === tagName) {
-      if (release.draft || release.prerelease) {
+      if (release.draft === undefined || release.draft) {
         return true;
       }
     }
@@ -36,7 +36,7 @@ async function run() {
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
     let release = await findRelease(github, owner, repo, tag);
-    if (!release) {
+    if (release === undefined) {
       // Create a release
       // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
       // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
@@ -50,7 +50,7 @@ async function run() {
         prerelease
       });
     } else {
-      const releaseId = release.id;
+      const releaseId = release.release_id;
       await github.repos.updateRelease({
         owner,
         repo,

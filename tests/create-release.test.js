@@ -191,3 +191,92 @@ describe('Create Release', () => {
     expect(core.setOutput).toHaveBeenCalledTimes(0);
   });
 });
+
+/* eslint-disable no-undef */
+describe('Update Release', () => {
+  let updateRelease;
+  let listReleases;
+
+  beforeEach(() => {
+    updateRelease = jest.fn().mockReturnValueOnce({
+      data: {
+        release_id: 'releaseId',
+        owner: 'owner',
+        repo: 'repo',
+        tag_name: 'v1.0.0',
+        name: 'myRelease',
+        body: 'myBody',
+        draft: true,
+        prerelease: false
+      }
+    });
+    listReleases = jest.fn().mockReturnValueOnce({
+      data: [
+        {
+          release_id: 'releaseId',
+          owner: 'owner',
+          repo: 'repo',
+          tag_name: 'v1.0.0',
+          name: 'myRelease',
+          body: 'myBody',
+          draft: true,
+          prerelease: false
+        }
+      ]
+    });
+
+    context.repo = {
+      owner: 'owner',
+      repo: 'repo'
+    };
+
+    const github = {
+      repos: {
+        updateRelease,
+        listReleases
+      }
+    };
+
+    GitHub.mockImplementation(() => github);
+  });
+
+  test('List release endpoint is called', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false');
+
+    await run();
+
+    expect(listReleases).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo'
+    });
+  });
+
+  test('Update release endpoint is called with draft', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('true')
+      .mockReturnValueOnce('false');
+
+    await run();
+
+    expect(updateRelease).toHaveBeenCalledWith({
+      release_id: 'releaseId',
+      owner: 'owner',
+      repo: 'repo',
+      tag_name: 'v1.0.0',
+      name: 'myRelease',
+      body: 'myBody',
+      draft: true,
+      prerelease: false
+    });
+  });
+});
