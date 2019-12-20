@@ -200,7 +200,7 @@ describe('Update Release', () => {
   beforeEach(() => {
     updateRelease = jest.fn().mockReturnValueOnce({
       data: {
-        release_id: 'releaseId',
+        id: 'releaseId',
         owner: 'owner',
         repo: 'repo',
         tag_name: 'v1.0.0',
@@ -213,7 +213,7 @@ describe('Update Release', () => {
     listReleases = jest.fn().mockReturnValueOnce({
       data: [
         {
-          release_id: 'releaseId',
+          id: 'releaseId',
           owner: 'owner',
           repo: 'repo',
           tag_name: 'v1.0.0',

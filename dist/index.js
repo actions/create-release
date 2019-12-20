@@ -7896,7 +7896,7 @@ async function run() {
         prerelease
       });
     } else {
-      const releaseId = release.release_id;
+      const releaseId = release.id;
       await github.repos.updateRelease({
         owner,
         repo,
