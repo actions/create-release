@@ -22,6 +22,7 @@ describe('Create Release', () => {
       owner: 'owner',
       repo: 'repo'
     };
+    context.sha = 'sha';
 
     const github = {
       repos: {
@@ -50,7 +51,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: 'myBody',
       draft: false,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
@@ -72,7 +74,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: 'myBody',
       draft: true,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
@@ -94,7 +97,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: 'myBody',
       draft: false,
-      prerelease: true
+      prerelease: true,
+      target_commitish: 'sha'
     });
   });
 
@@ -116,7 +120,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: '',
       draft: false,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
