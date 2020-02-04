@@ -17,11 +17,12 @@ async function run() {
     const tag = tagName.replace('refs/tags/', '');
     const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
     const body = core.getInput('body', { required: false });
+    const bodyFromFile = core.getInput('bodyFromFile', { required: false });
     let bodyFile = null;
     try {
-      bodyFile = fs.readFileSync(body, { encoding: 'string' });
-    } catch (e) {
-      // noop
+      bodyFile = fs.readFileSync(bodyFromFile, { encoding: 'string' });
+    } catch (error) {
+      core.setFailed(error.message);
     }
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
