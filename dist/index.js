@@ -7865,7 +7865,7 @@ async function run() {
     const body = core.getInput('body', { required: false });
     let bodyFile = null;
     try {
-      bodyFile = fs.readFileSync(body);
+      bodyFile = fs.readFileSync(body, { encoding: 'string' });
     } catch (e) {
       // noop
     }
