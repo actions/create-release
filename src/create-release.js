@@ -20,7 +20,7 @@ async function run() {
     const bodyFromFile = core.getInput('bodyFromFile', { required: false });
     let bodyFile = null;
     try {
-      bodyFile = fs.readFileSync(bodyFromFile, { encoding: 'string' });
+      bodyFile = fs.readFileSync(bodyFromFile, { encoding: 'utf8' });
     } catch (error) {
       core.setFailed(error.message);
     }
