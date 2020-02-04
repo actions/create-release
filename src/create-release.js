@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
+const fs = require('fs');
 
 async function run() {
   try {
@@ -16,6 +17,12 @@ async function run() {
     const tag = tagName.replace('refs/tags/', '');
     const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
     const body = core.getInput('body', { required: false });
+    let bodyFile = null;
+    try {
+      bodyFile = fs.readFileSync(body);
+    } catch (e) {
+      // noop
+    }
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
@@ -27,7 +34,7 @@ async function run() {
       repo,
       tag_name: tag,
       name: releaseName,
-      body,
+      body: bodyFile || body,
       draft,
       prerelease
     });
