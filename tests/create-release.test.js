@@ -127,9 +127,10 @@ describe('Create Release', () => {
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
-      .mockReturnValueOnce('notes.md')
+      .mockReturnValueOnce('') // <-- The default value for body in action.yml
       .mockReturnValueOnce('false')
-      .mockReturnValueOnce('false');
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('notes.md');
 
     fs.readFileSync = jest.fn().mockReturnValueOnce('# this is a release\nThe markdown is strong in this one.');
 
