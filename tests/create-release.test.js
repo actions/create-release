@@ -1,8 +1,10 @@
 jest.mock('@actions/core');
 jest.mock('@actions/github');
+jest.mock('fs');
 
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
+const fs = require('fs');
 const run = require('../src/create-release.js');
 
 /* eslint-disable no-undef */
@@ -115,6 +117,31 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: '',
+      draft: false,
+      prerelease: false
+    });
+  });
+
+  test('Release body based on file', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('') // <-- The default value for body in action.yml
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('notes.md');
+
+    fs.readFileSync = jest.fn().mockReturnValueOnce('# this is a release\nThe markdown is strong in this one.');
+
+    await run();
+
+    expect(createRelease).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo',
+      tag_name: 'v1.0.0',
+      name: 'myRelease',
+      body: '# this is a release\nThe markdown is strong in this one.',
       draft: false,
       prerelease: false
     });
