@@ -11,6 +11,10 @@ inputs:
   body:
     description: 'Text describing the contents of the tag.'
     required: false
+    default: ''
+  body-command: 
+    description: 'Command to run which the output to generate the body of the release. Note, this will append to the body defined.'
+    required: false
   draft:
     description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'
     required: false

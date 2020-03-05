@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
+const exec = require('@actions/exec');
 
 async function run() {
   try {
@@ -16,8 +17,19 @@ async function run() {
     const tag = tagName.replace('refs/tags/', '');
     const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
     const body = core.getInput('body', { required: false });
+    const bodyCommand = core.getInput('body-command', {required: false});
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
+
+    if (bodyCommand) {
+      const options = {};
+      options.listeners = {
+        stdout: (data) => {
+          body += data.toString();
+        }
+      };
+      await exec.exec(bodyCommand, [], options);
+    }
 
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
