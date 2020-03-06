@@ -1,0 +1,26 @@
+name: "Preflight Jest Check"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: jest_preflight
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Run Jest Tests
+        uses: landon-martin/code-coverage-commenter@v0.0.7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-command: "npm run test"
+          comment-title: "Unit Test Coverage Report"
