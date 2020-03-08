@@ -12,9 +12,13 @@ For more information on these inputs, see the [API Documentation](https://develo
 
 - `tag_name`: The name of the tag for this release
 - `release_name`: The name of the release
-- `body`: Text describing the contents of the release
+- `body`: Text describing the contents of the release. Optional, and not needed if using `bodyFromFile`.
+- `bodyFromFile`: A file with contents describing the release. Optional, and not needed if using `body`.
 - `draft`: `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
 - `prerelease`: `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default `false`
+
+#### `bodyFromFile`
+The `bodyFromFile` is valuable for dynamically creating a `.md` within code commits and even within the Github Action steps leading up to the `create-release`.
 
 ### Outputs
 For more information on these outputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#response-4) for an example of what these outputs look like
