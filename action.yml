@@ -4,7 +4,8 @@ author: 'GitHub'
 inputs:
   tag_name:
     description: 'The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag'
-    required: true
+    required: false
+    default: ${{ github.ref }}
   release_name:
     description: 'The name of the release. For example, `Release v1.0.1`'
     required: false
