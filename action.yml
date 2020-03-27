@@ -2,6 +2,14 @@ name: 'Create a Release'
 description: 'Create a release for a tag in your repository'
 author: 'GitHub'
 inputs:
+  token:
+    description: >
+      Personal access token (PAT) used to create the release.
+      We recommend using a service account with the least permissions necessary.
+      Also when generating a new PAT, select the least scopes necessary.
+      [Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+    required: false
+    default: ${{ github.token }}
   tag_name:
     description: 'The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag'
     required: true
