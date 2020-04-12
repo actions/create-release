@@ -20,11 +20,11 @@ async function run() {
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
 
-    const bodyFromFile = core.getInput('bodyFromFile', { required: false });
+    const bodyPath = core.getInput('body_path', { required: false });
     let bodyFileContent = null;
-    if (bodyFromFile !== '' && !!bodyFromFile) {
+    if (bodyPath !== '' && !!bodyPath) {
       try {
-        bodyFileContent = fs.readFileSync(bodyFromFile, { encoding: 'utf8' });
+        bodyFileContent = fs.readFileSync(bodyPath, { encoding: 'utf8' });
       } catch (error) {
         core.setFailed(error.message);
       }
