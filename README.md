@@ -44,14 +44,9 @@ jobs:
         uses: actions/checkout@master
       - name: Read Release Notes
         id: release_notes
-        run: |
-          CONTENTS="$(cat release_notes_latest.md)"
-          # allow to save as multiline string https://github.community/t5/GitHub-Actions/set-output-Truncates-Multiline-Strings/m-p/38372/highlight/true#M3322
-          CONTENTS="${CONTENTS//'%'/'%25'}"
-          CONTENTS="${CONTENTS//$'\n'/'%0A'}"
-          CONTENTS="${CONTENTS//$'\r'/'%0D'}" 
-          # set an output parameter https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-output-parameter
-          echo "::set-output name=contents::$CONTENTS"
+        juliangruber/read-file-action@v1
+        with:
+          path: ./release_notes_latest.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -60,7 +55,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: ${{ steps.release_notes.outputs.contents }}  # file contents taken from earlier step
+          body: ${{ steps.release_notes.outputs.content }}  # file contents taken from earlier step
           draft: false
           prerelease: false
 ```
