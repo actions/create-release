@@ -42,6 +42,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+      - name: Read Release Notes
+        id: release_notes
+        juliangruber/read-file-action@v1
+        with:
+          path: ./release_notes_latest.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -50,10 +55,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+          body: ${{ steps.release_notes.outputs.content }}  # file contents taken from earlier step
           draft: false
           prerelease: false
 ```
