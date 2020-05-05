@@ -10,11 +10,11 @@ async function run() {
     const { owner, repo } = context.repo;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    const tagName = core.getInput('tag_name', { required: true });
+    const tagName = core.getInput('tag_name');
 
     // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
     const tag = tagName.replace('refs/tags/', '');
-    const releaseName = core.getInput('release_name', { required: true }).replace('refs/tags/', '');
+    const releaseName = core.getInput('release_name').replace('refs/tags/', '');
     const body = core.getInput('body', { required: false });
     const draft = core.getInput('draft', { required: false }) === 'true';
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
