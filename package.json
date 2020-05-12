@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint 'src/**.js' 'tests/**.js' --fix",
+    "format": "prettier --write **/*.{js,json,yml}",
+    "format-check": "prettier --check **/*.{js,json,yml}",
     "test": "eslint 'src/**.js' 'tests/**.js' && jest --coverage",
     "build": "ncc build src/main.js",
     "precommit": "npm run build && git add dist/"
@@ -34,7 +36,7 @@
     "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.8.0",
-    "prettier": "^1.16.4",
+    "prettier": "2.0.4",
     "husky": "^3.0.5"
   },
   "jest": {
