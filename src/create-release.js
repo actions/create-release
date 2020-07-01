@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
+const fs = require('fs');
 
 async function run() {
   try {
@@ -20,6 +21,16 @@ async function run() {
     const prerelease = core.getInput('prerelease', { required: false }) === 'true';
     const commitish = core.getInput('commitish', { required: false }) || context.sha;
 
+    const bodyPath = core.getInput('body_path', { required: false });
+    let bodyFileContent = null;
+    if (bodyPath !== '' && !!bodyPath) {
+      try {
+        bodyFileContent = fs.readFileSync(bodyPath, { encoding: 'utf8' });
+      } catch (error) {
+        core.setFailed(error.message);
+      }
+    }
+
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
     // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
@@ -28,7 +39,7 @@ async function run() {
       repo,
       tag_name: tag,
       name: releaseName,
-      body,
+      body: bodyFileContent || body,
       draft,
       prerelease,
       target_commitish: commitish
