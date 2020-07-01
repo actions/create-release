@@ -135,6 +135,7 @@ describe('Create Release', () => {
       .mockReturnValueOnce('') // <-- The default value for body in action.yml
       .mockReturnValueOnce('false')
       .mockReturnValueOnce('false')
+      .mockReturnValueOnce(null)
       .mockReturnValueOnce('notes.md');
 
     fs.readFileSync = jest.fn().mockReturnValueOnce('# this is a release\nThe markdown is strong in this one.');
@@ -148,7 +149,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: '# this is a release\nThe markdown is strong in this one.',
       draft: false,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
