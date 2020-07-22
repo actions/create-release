@@ -64,6 +64,77 @@ jobs:
 
 This will create a [Release](https://help.github.com/en/articles/creating-releases), as well as a [`release` event](https://developer.github.com/v3/activity/events/types/#releaseevent), which could be handled by a third party service, or by GitHub Actions for additional uses, for example the [`@actions/upload-release-asset`](https://www.github.com/actions/upload-release-asset) GitHub Action. This uses the `GITHUB_TOKEN` provided by the [virtual environment](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#github_token-secret), so no new token is needed.
 
+### Storing the upload_url in an artifact
+
+There are use cases where you might want to store the upload_url in an artifact so that you can leverage it in a different job. Here is an example
+
+```yaml
+on:
+  push:
+    tags:
+      - 'v*'
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+
+      # store the value of upload_url in a text file, double quotes are important to avoid shell expansion
+      - run: echo "${{ steps.create_release.outputs.upload_url }}" > ./upload_url.txt
+
+      - name: 'Store upload url'
+        uses: actions/upload-artifact@v1
+        with:
+          name: upload_url
+          path: ./upload_url.txt
+
+  upload:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - uses: actions/download-artifact@v1
+          with:
+            name: upload_url
+
+        - id: upload_url
+          run: |
+            URL=$(cat upload_url/upload_url.txt)
+            echo "::set-output name=url::${URL}"
+
+        - name: Upload Linux Asset
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ steps.upload_url.outputs.url }}
+            asset_path: ./.out/some-binary
+            asset_name: some-binary (linux)
+            asset_content_type: application/octet-stream
+```
+
 ## Contributing
 We would love you to contribute to `@actions/create-release`, pull requests are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
