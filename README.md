@@ -11,6 +11,7 @@ Create a workflow `.yml` file in your `.github/workflows` directory. An [example
 For more information on these inputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#input)
 
 - `tag_name`: The name of the tag for this release
+- `commitish`: The SHA or reference to create the release tag from if it does not exist. Defaults to the HEAD of the repository's default branch.
 - `release_name`: The name of the release
 - `body`: Text describing the contents of the release. Optional, and not needed if using `body_path`.
 - `body_path`: A file with contents describing the release. Optional, and not needed if using `body`.
