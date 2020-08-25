@@ -2012,7 +2012,74 @@ module.exports = require("https");
 /***/ 215:
 /***/ (function(module) {
 
-module.exports = {"_args":[["@octokit/rest@16.43.1","/Users/mscoutermarsh/code/create-release"]],"_from":"@octokit/rest@16.43.1","_id":"@octokit/rest@16.43.1","_inBundle":false,"_integrity":"sha512-gfFKwRT/wFxq5qlNjnW2dh+qh74XgTQ2B179UX5K1HYCluioWj8Ndbgqw2PVqa1NnVJkGHp2ovMpVn/DImlmkw==","_location":"/@octokit/rest","_phantomChildren":{"@octokit/types":"2.16.0","deprecation":"2.3.1","once":"1.4.0","os-name":"3.1.0"},"_requested":{"type":"version","registry":true,"raw":"@octokit/rest@16.43.1","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"16.43.1","saveSpec":null,"fetchSpec":"16.43.1"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.43.1.tgz","_spec":"16.43.1","_where":"/Users/mscoutermarsh/code/create-release","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.43.1"};
+module.exports = {"_args":[["@octokit/rest@16.43.1","/home/marc/src/github.com/mec07/create-release"]],"_from":"@octokit/rest@16.43.1","_id":"@octokit/rest@16.43.1","_inBundle":false,"_integrity":"sha512-gfFKwRT/wFxq5qlNjnW2dh+qh74XgTQ2B179UX5K1HYCluioWj8Ndbgqw2PVqa1NnVJkGHp2ovMpVn/DImlmkw==","_location":"/@octokit/rest","_phantomChildren":{"@octokit/types":"2.16.0","deprecation":"2.3.1","once":"1.4.0","os-name":"3.1.0"},"_requested":{"type":"version","registry":true,"raw":"@octokit/rest@16.43.1","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"16.43.1","saveSpec":null,"fetchSpec":"16.43.1"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.43.1.tgz","_spec":"16.43.1","_where":"/home/marc/src/github.com/mec07/create-release","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.43.1"};
+
+/***/ }),
+
+/***/ 228:
+/***/ (function(module) {
+
+module.exports = function(md, options) {
+  options = options || {};
+  options.listUnicodeChar = options.hasOwnProperty('listUnicodeChar') ? options.listUnicodeChar : false;
+  options.stripListLeaders = options.hasOwnProperty('stripListLeaders') ? options.stripListLeaders : true;
+  options.gfm = options.hasOwnProperty('gfm') ? options.gfm : true;
+
+  var output = md || '';
+
+  // Remove horizontal rules (stripListHeaders conflict with this rule, which is why it has been moved to the top)
+  output = output.replace(/^(-\s*?|\*\s*?|_\s*?){3,}\s*$/gm, '');
+
+  try {
+    if (options.stripListLeaders) {
+      if (options.listUnicodeChar)
+        output = output.replace(/^([\s\t]*)([\*\-\+]|\d+\.)\s+/gm, options.listUnicodeChar + ' $1');
+      else
+        output = output.replace(/^([\s\t]*)([\*\-\+]|\d+\.)\s+/gm, '$1');
+    }
+    if (options.gfm) {
+      output = output
+        // Header
+        .replace(/\n={2,}/g, '\n')
+        // Strikethrough
+        .replace(/~~/g, '')
+        // Fenced codeblocks
+        .replace(/`{3}.*\n/g, '');
+    }
+    output = output
+      // Remove HTML tags
+      .replace(/<[^>]*>/g, '')
+      // Remove setext-style headers
+      .replace(/^[=\-]{2,}\s*$/g, '')
+      // Remove footnotes?
+      .replace(/\[\^.+?\](\: .*?$)?/g, '')
+      .replace(/\s{0,2}\[.*?\]: .*?$/g, '')
+      // Remove images
+      .replace(/\!\[.*?\][\[\(].*?[\]\)]/g, '')
+      // Remove inline links
+      .replace(/\[(.*?)\][\[\(].*?[\]\)]/g, '$1')
+      // Remove blockquotes
+      .replace(/^\s{0,3}>\s?/g, '')
+      // Remove reference-style links?
+      .replace(/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/g, '')
+      // Remove atx-style headers
+      .replace(/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/gm, '$1$2$3')
+      // Remove emphasis (repeat the line to remove double emphasis)
+      .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
+      .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
+      // Remove code blocks
+      .replace(/(`{3,})(.*?)\1/gm, '$2')
+      // Remove inline code
+      .replace(/`(.+?)`/g, '$1')
+      // Replace two or more newlines with exactly two? Not entirely sure this belongs here...
+      .replace(/\n{2,}/g, '\n\n');
+  } catch(e) {
+    console.error(e);
+    return md;
+  }
+  return output;
+};
+
 
 /***/ }),
 
@@ -4104,6 +4171,13 @@ exports.paginateRest = paginateRest;
 
 /***/ }),
 
+/***/ 304:
+/***/ (function(module) {
+
+module.exports = require("string_decoder");
+
+/***/ }),
+
 /***/ 323:
 /***/ (function(module) {
 
@@ -5042,6 +5116,187 @@ function escape(s) {
         .replace(/;/g, '%3B');
 }
 //# sourceMappingURL=command.js.map
+
+/***/ }),
+
+/***/ 449:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+(function() {
+  "use strict";
+
+  var fs = __webpack_require__(747),
+      StringDecoder = __webpack_require__(304).StringDecoder;
+
+  function LineReader(fd, cb, separator, encoding, bufferSize) {
+    var filePosition   = 0,
+        encoding       = encoding || 'utf8',
+        separator      = separator || '\n',
+        bufferSize     = bufferSize || 1024,
+        buffer         = new Buffer(bufferSize),
+        bufferStr      = '',
+        decoder        = new StringDecoder(encoding),
+        closed         = false,
+        eof            = false,
+        separatorIndex = -1;
+
+    function close() {
+      if (!closed) {
+        fs.close(fd, function(err) {
+          if (err) {
+            throw err;
+          }
+        });
+        closed = true;
+      }
+    }
+
+    function readToSeparator(cb) {
+      function readChunk() {
+        fs.read(fd, buffer, 0, bufferSize, filePosition, function(err, bytesRead) {
+          var separatorAtEnd;
+
+          if (err) {
+            throw err;
+          }
+
+          if (bytesRead < bufferSize) {
+            eof = true;
+            close();
+          }
+
+          filePosition += bytesRead;
+
+          bufferStr += decoder.write(buffer.slice(0, bytesRead));
+
+          if (separatorIndex < 0) {
+            separatorIndex = bufferStr.indexOf(separator);
+          }
+
+          separatorAtEnd = separatorIndex === bufferStr.length - 1;
+          if (bytesRead && (separatorIndex === -1 || separatorAtEnd) && !eof) {
+            readChunk();
+          } else {
+            cb();
+          }
+        });
+      }
+
+      readChunk();
+    }
+
+    function hasNextLine() {
+      return bufferStr.length > 0 || !eof;
+    }
+
+    function nextLine(cb) {
+      function getLine() {
+        var ret = bufferStr.substring(0, separatorIndex);
+
+        bufferStr = bufferStr.substring(separatorIndex + separator.length);
+        separatorIndex = -1;
+        cb(ret);
+      }
+
+      if (separatorIndex < 0) {
+        separatorIndex = bufferStr.indexOf(separator);
+      }
+
+      if (separatorIndex < 0) {
+        if (eof) {
+          if (hasNextLine()) {
+            separatorIndex = bufferStr.length;
+            getLine();
+          } else {
+            throw new Error('No more lines to read.');
+          }
+        } else {
+          readToSeparator(getLine);
+        }
+      } else {
+        getLine();
+      }
+    }
+
+    this.hasNextLine = hasNextLine;
+    this.nextLine = nextLine;
+    this.close = close;
+
+    readToSeparator(cb);
+  }
+
+  function open(filename, cb, separator, encoding, bufferSize) {
+    fs.open(filename, 'r', parseInt('666', 8), function(err, fd) {
+      var reader;
+      if (err) {
+        throw err;
+      }
+
+      reader = new LineReader(fd, function() {
+        cb(reader);
+      }, separator, encoding, bufferSize);
+    });
+  }
+
+  function eachLine(filename, cb, separator, encoding, bufferSize) {
+    var finalFn,
+        asyncCb = cb.length == 3;
+
+    function finish() {
+      if (finalFn && typeof finalFn === 'function') {
+        finalFn();
+      }
+    }
+
+    open(filename, function(reader) {
+      function newRead() {
+        if (reader.hasNextLine()) {
+          setImmediate(readNext);
+        } else {
+          finish();
+        }
+      }
+
+      function continueCb(continueReading) {
+        if (continueReading !== false) {
+          newRead();
+        } else {
+          finish();
+          reader.close();
+        }
+      }
+
+      function readNext() {
+        reader.nextLine(function(line) {
+          var last = !reader.hasNextLine();
+
+          if (asyncCb) {
+            cb(line, last, continueCb);
+          } else {
+            if (cb(line, last) !== false) {
+              newRead();
+            } else {
+              finish();
+              reader.close();
+            }
+          }
+        });
+      }
+
+      newRead();
+    }, separator, encoding, bufferSize);
+
+    return {
+      then: function(cb) {
+        finalFn = cb;
+      }
+    };
+  }
+
+  module.exports.open = open;
+  module.exports.eachLine = eachLine;
+}());
+
 
 /***/ }),
 
@@ -8549,6 +8804,214 @@ module.exports = (promise, onFinally) => {
 
 /***/ }),
 
+/***/ 734:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+var EOL = __webpack_require__(87).EOL
+var lineReader = __webpack_require__(449)
+var removeMarkdown = __webpack_require__(228)
+
+// patterns
+var semver = /\[?v?([\w\d.-]+\.[\w\d.-]+[a-zA-Z0-9])\]?/
+var date = /.*[ ](\d\d?\d?\d?[-/.]\d\d?[-/.]\d\d?\d?\d?).*/
+var subhead = /^###/
+var listitem = /^[*-]/
+
+var defaultOptions = { removeMarkdown: true }
+
+/**
+ * Changelog parser.
+ *
+ * @param {string|object} options - changelog file string or options object containing file string
+ * @param {string} [options.filePath] - path to changelog file
+ * @param {string} [options.text] - changelog text (filePath alternative)
+ * @param {boolean} [options.removeMarkdown=true] - changelog file string to parse
+ * @param {function} [callback] - optional callback
+ * @returns {Promise<object>} - parsed changelog object
+ */
+function parseChangelog (options, callback) {
+  if (typeof options === 'undefined') throw new Error('missing options argument')
+  if (typeof options === 'string') options = { filePath: options }
+  if (typeof options === 'object') {
+    var hasFilePath = typeof options.filePath !== 'undefined'
+    var hasText = typeof options.text !== 'undefined'
+    var invalidFilePath = typeof options.filePath !== 'string'
+    var invalidText = typeof options.text !== 'string'
+
+    if (!hasFilePath && !hasText) {
+      throw new Error('must provide filePath or text')
+    }
+
+    if (hasFilePath && invalidFilePath) {
+      throw new Error('invalid filePath, expected string')
+    }
+
+    if (hasText && invalidText) {
+      throw new Error('invalid text, expected string')
+    }
+  }
+
+  var opts = Object.assign({}, defaultOptions, options)
+  var changelog = parse(opts)
+
+  if (typeof callback === 'function') {
+    changelog
+      .then(function (log) { callback(null, log) })
+      .catch(function (err) { callback(err) })
+  }
+
+  // otherwise, invoke callback
+  return changelog
+}
+
+/**
+ * Internal parsing logic.
+ *
+ * @param {options} options - options object
+ * @param {string} [options.filePath] - path to changelog file
+ * @param {string} [options.text] - changelog text (filePath alternative)
+ * @param {boolean} [options.removeMarkdown] - remove markdown
+ * @returns {Promise<object>} - parsed changelog object
+ */
+function parse (options) {
+  var filePath = options.filePath
+  var text = options.text
+  var data = {
+    log: { versions: [] },
+    current: null
+  }
+
+  // allow `handleLine` to mutate log/current data as `this`.
+  var cb = handleLine.bind(data, options)
+
+  return new Promise(function (resolve, reject) {
+    function done () {
+      // push last version into log
+      if (data.current) {
+        pushCurrent(data)
+      }
+
+      // clean up description
+      data.log.description = clean(data.log.description)
+      if (data.log.description === '') delete data.log.description
+
+      resolve(data.log)
+    }
+
+    if (text) {
+      text.split(/\r\n?|\n/mg).forEach(cb)
+      done()
+    } else {
+      lineReader.eachLine(filePath, cb, EOL).then(done)
+    }
+  })
+}
+
+/**
+ * Handles each line and mutates data object (bound to `this`) as needed.
+ *
+ * @param {object} options - options object
+ * @param {boolean} options.removeMarkdown - whether or not to remove markdown
+ * @param {string} line - line from changelog file
+ */
+function handleLine (options, line) {
+  // skip line if it's a link label
+  if (line.match(/^\[[^[\]]*\] *?:/)) return
+
+  // set title if it's there
+  if (!this.log.title && line.match(/^# ?[^#]/)) {
+    this.log.title = line.substring(1).trim()
+    return
+  }
+
+  // new version found!
+  if (line.match(/^##? ?[^#]/)) {
+    if (this.current && this.current.title) pushCurrent(this)
+
+    this.current = versionFactory()
+
+    if (semver.exec(line)) this.current.version = semver.exec(line)[1]
+
+    this.current.title = line.substring(2).trim()
+
+    if (this.current.title && date.exec(this.current.title)) this.current.date = date.exec(this.current.title)[1]
+
+    return
+  }
+
+  // deal with body or description content
+  if (this.current) {
+    this.current.body += line + EOL
+
+    // handle case where current line is a 'subhead':
+    // - 'handleize' subhead.
+    // - add subhead to 'parsed' data if not already present.
+    if (subhead.exec(line)) {
+      var key = line.replace('###', '').trim()
+
+      if (!this.current.parsed[key]) {
+        this.current.parsed[key] = []
+        this.current._private.activeSubhead = key
+      }
+    }
+
+    // handle case where current line is a 'list item':
+    if (listitem.exec(line)) {
+      const log = options.removeMarkdown ? removeMarkdown(line) : line
+      // add line to 'catch all' array
+      this.current.parsed._.push(log)
+
+      // add line to 'active subhead' if applicable (eg. 'Added', 'Changed', etc.)
+      if (this.current._private.activeSubhead) {
+        this.current.parsed[this.current._private.activeSubhead].push(log)
+      }
+    }
+  } else {
+    this.log.description = (this.log.description || '') + line + EOL
+  }
+}
+
+function versionFactory () {
+  return {
+    version: null,
+    title: null,
+    date: null,
+    body: '',
+    parsed: {
+      _: []
+    },
+    _private: {
+      activeSubhead: null
+    }
+  }
+}
+
+function pushCurrent (data) {
+  // remove private properties
+  delete data.current._private
+
+  data.current.body = clean(data.current.body)
+  data.log.versions.push(data.current)
+}
+
+function clean (str) {
+  if (!str) return ''
+
+  // trim
+  str = str.trim()
+  // remove leading newlines
+  str = str.replace(new RegExp('[' + EOL + ']*'), '')
+  // remove trailing newlines
+  str = str.replace(new RegExp('[' + EOL + ']*$'), '')
+
+  return str
+}
+
+module.exports = parseChangelog
+
+
+/***/ }),
+
 /***/ 742:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -8782,6 +9245,21 @@ exports.request = request;
 const core = __webpack_require__(470);
 const { GitHub, context } = __webpack_require__(469);
 const fs = __webpack_require__(747);
+const parseChangelog = __webpack_require__(734);
+
+function getChangelogVersionInfo(filename) {
+  parseChangelog(filename)
+    .then(result => {
+      if (result && result.versions && result.versions.length > 0) {
+        return result.versions[0];
+      }
+      return null;
+    })
+    .catch(err => {
+      console.log(err);
+      return null;
+    });
+}
 
 async function run() {
   try {
@@ -8812,15 +9290,27 @@ async function run() {
       }
     }
 
+    const changelogPath = core.getInput('changelog_path', { required: false });
+    let changelogBody = null;
+    let changelogTag = null;
+    if (changelogPath !== '' && !!changelogPath) {
+      const versionInfo = getChangelogVersionInfo(changelogPath);
+      console.log(versionInfo);
+      if (versionInfo) {
+        changelogBody = versionInfo.body;
+        changelogTag = `v${versionInfo.version}`;
+      }
+    }
+
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
     // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
     const createReleaseResponse = await github.repos.createRelease({
       owner,
       repo,
-      tag_name: tag,
+      tag_name: changelogTag || tag,
       name: releaseName,
-      body: bodyFileContent || body,
+      body: bodyFileContent || changelogBody || body,
       draft,
       prerelease,
       target_commitish: commitish

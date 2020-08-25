@@ -22,7 +22,8 @@
   "dependencies": {
     "@actions/core": "^1.0.0",
     "@actions/exec": "^1.0.0",
-    "@actions/github": "^2.2.0"
+    "@actions/github": "^2.2.0",
+    "changelog-parser": "^2.8.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.4",
@@ -33,9 +34,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.12.4",
+    "husky": "^3.0.5",
     "jest": "^24.8.0",
-    "prettier": "^1.16.4",
-    "husky": "^3.0.5"
+    "prettier": "1.19.1"
   },
   "jest": {
     "testEnvironment": "node",

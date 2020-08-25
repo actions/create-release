@@ -1,6 +1,21 @@
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
 const fs = require('fs');
+const parseChangelog = require('changelog-parser');
+
+function getChangelogVersionInfo(filename) {
+  parseChangelog(filename)
+    .then(result => {
+      if (result && result.versions && result.versions.length > 0) {
+        return result.versions[0];
+      }
+      return null;
+    })
+    .catch(err => {
+      console.log(err);
+      return null;
+    });
+}
 
 async function run() {
   try {
@@ -31,15 +46,27 @@ async function run() {
       }
     }
 
+    const changelogPath = core.getInput('changelog_path', { required: false });
+    let changelogBody = null;
+    let changelogTag = null;
+    if (changelogPath !== '' && !!changelogPath) {
+      const versionInfo = getChangelogVersionInfo(changelogPath);
+      console.log(versionInfo);
+      if (versionInfo) {
+        changelogBody = versionInfo.body;
+        changelogTag = `v${versionInfo.version}`;
+      }
+    }
+
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
     // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
     const createReleaseResponse = await github.repos.createRelease({
       owner,
       repo,
-      tag_name: tag,
+      tag_name: changelogTag || tag,
       name: releaseName,
-      body: bodyFileContent || body,
+      body: bodyFileContent || changelogBody || body,
       draft,
       prerelease,
       target_commitish: commitish
