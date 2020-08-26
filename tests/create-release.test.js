@@ -1,7 +1,8 @@
 jest.mock('@actions/core');
 jest.mock('@actions/github');
 jest.mock('fs');
-jest.mock('changelog-parser');
+jest.mock('changelog-parser', () => jest.fn().mockReturnValue({ versions: [{ version: '0.4.1', body: '### Changed\n\n- Automate github releases' }] }));
+
 
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
@@ -156,6 +157,7 @@ describe('Create Release', () => {
   });
 
   test('Release tag and body based on changelog', async () => {
+
     core.getInput = jest
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
@@ -166,10 +168,6 @@ describe('Create Release', () => {
       .mockReturnValueOnce(null)
       .mockReturnValueOnce('')
       .mockReturnValueOnce('CHANGELOG.md');
-
-    parseChangelog = jest
-      .fn()
-      .mockReturnValueOnce({ versions: [{ version: '0.4.1', body: '### Changed\n\n- Automate github releases' }] });
 
     await run();
 

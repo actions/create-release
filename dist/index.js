@@ -9247,18 +9247,19 @@ const { GitHub, context } = __webpack_require__(469);
 const fs = __webpack_require__(747);
 const parseChangelog = __webpack_require__(734);
 
-function getChangelogVersionInfo(filename) {
-  parseChangelog(filename)
-    .then(result => {
-      if (result && result.versions && result.versions.length > 0) {
-        return result.versions[0];
-      }
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-      return null;
-    });
+async function getChangelogVersionInfo(filename) {
+  try {
+    const result = await parseChangelog(filename);
+    
+    if (result && result.versions && result.versions.length > 0) {
+      return result.versions[0];
+    }
+
+    return null;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
 
 async function run() {
@@ -9291,19 +9292,16 @@ async function run() {
     }
 
     const changelogPath = core.getInput('changelog_path', { required: false });
-    console.log('changelogPath = ', changelogPath);
+
     let changelogBody = null;
     let changelogTag = null;
     if (changelogPath !== '' && !!changelogPath) {
-      const versionInfo = getChangelogVersionInfo(changelogPath);
-      console.log('versionInfo = ', versionInfo);
+      const versionInfo = await getChangelogVersionInfo(changelogPath);
       if (versionInfo) {
         changelogBody = versionInfo.body;
         changelogTag = `v${versionInfo.version}`;
       }
     }
-    console.log('changelogBody = ', changelogBody);
-    console.log('changelogTag = ', changelogTag);
 
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
