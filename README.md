@@ -16,9 +16,13 @@ For more information on these inputs, see the [API Documentation](https://develo
 - `body_path`: A file with contents describing the release. Optional, and not needed if using `body`.
 - `draft`: `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
 - `prerelease`: `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default `false`
+- `changelog_path`: Sets the tag to the latest version found in the changelog file and sets the body to the content of the latest change. Optional, and not needed if using `tag_name` and `body`. 
 
 #### `body_path`
 The `body_path` is valuable for dynamically creating a `.md` within code commits and even within the Github Action steps leading up to the `create-release`.
+
+#### `changelog_path`
+The `changelog_path` is valuable for creating a release based on the latest change in the changelog. The tag is set to the version of the latest change with a v in front, e.g. `v{latest_version}`. The version is expected to be [semver](http://semver.org/) compliant. The body is set to the contents of the latest change in the changelog. The changelog parser works on changelogs that follow the format laid out in: https://keepachangelog.com/en/1.0.0/, the underlying library is (changelog-parser)[https://www.npmjs.com/package/changelog-parser].
 
 ### Outputs
 For more information on these outputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#response-4) for an example of what these outputs look like
