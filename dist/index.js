@@ -9250,14 +9250,12 @@ const parseChangelog = __webpack_require__(734);
 async function getChangelogVersionInfo(filename) {
   try {
     const result = await parseChangelog(filename);
-    
     if (result && result.versions && result.versions.length > 0) {
       return result.versions[0];
     }
 
     return null;
   } catch (e) {
-    console.log(e);
     return null;
   }
 }
