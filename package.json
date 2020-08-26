@@ -34,9 +34,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.12.4",
-    "husky": "^3.0.5",
     "jest": "^24.8.0",
-    "prettier": "1.19.1"
+    "prettier": "^1.16.4",
+    "husky": "^3.0.5"
   },
   "jest": {
     "testEnvironment": "node",
