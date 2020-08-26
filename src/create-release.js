@@ -47,16 +47,19 @@ async function run() {
     }
 
     const changelogPath = core.getInput('changelog_path', { required: false });
+    console.log('changelogPath = ', changelogPath);
     let changelogBody = null;
     let changelogTag = null;
     if (changelogPath !== '' && !!changelogPath) {
       const versionInfo = getChangelogVersionInfo(changelogPath);
-      console.log(versionInfo);
+      console.log('versionInfo = ', versionInfo);
       if (versionInfo) {
         changelogBody = versionInfo.body;
         changelogTag = `v${versionInfo.version}`;
       }
     }
+    console.log('changelogBody = ', changelogBody);
+    console.log('changelogTag = ', changelogTag);
 
     // Create a release
     // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release

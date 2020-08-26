@@ -1,12 +1,12 @@
 jest.mock('@actions/core');
 jest.mock('@actions/github');
 jest.mock('fs');
+jest.mock('changelog-parser');
 
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
 const fs = require('fs');
 const run = require('../src/create-release.js');
-const parseChangelog = require('changelog-parser');
 
 /* eslint-disable no-undef */
 describe('Create Release', () => {
@@ -167,7 +167,9 @@ describe('Create Release', () => {
       .mockReturnValueOnce('')
       .mockReturnValueOnce('CHANGELOG.md');
 
-    parseChangelog = jest.fn().mockReturnValueOnce({version: '0.4.1', body: '### Changed\n\n- Automate github releases'});
+    parseChangelog = jest
+      .fn()
+      .mockReturnValueOnce({ versions: [{ version: '0.4.1', body: '### Changed\n\n- Automate github releases' }] });
 
     await run();
 
