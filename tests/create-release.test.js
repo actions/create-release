@@ -78,7 +78,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: 'myBody',
       draft: false,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
@@ -101,7 +102,8 @@ describe('Create Release', () => {
       name: 'myRelease',
       body: 'myBody',
       draft: false,
-      prerelease: false
+      prerelease: false,
+      target_commitish: 'sha'
     });
   });
 
@@ -180,6 +182,7 @@ describe('Create Release', () => {
   test('Release body based on file', async () => {
     core.getInput = jest
       .fn()
+      .mockReturnValueOnce('')
       .mockReturnValueOnce('refs/tags/v1.0.0')
       .mockReturnValueOnce('myRelease')
       .mockReturnValueOnce('') // <-- The default value for body in action.yml
