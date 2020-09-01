@@ -33,11 +33,7 @@ async function run() {
 
     let createReleaseResponse;
     try {
-        console.log("Trying to release (new)...");
-        // Create a release
-        // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
-        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
-        createReleaseResponse = await github.repos.createRelease({
+        const params = {
           owner,
           repo,
           tag_name: tag,
@@ -46,7 +42,12 @@ async function run() {
           draft,
           prerelease,
           target_commitish: commitish
-        });
+        };
+        console.log("Trying to release with params:", params);
+        // Create a release
+        // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
+        createReleaseResponse = await github.repos.createRelease(params);
     }
     catch (e) {
         console.log(`Release failed: ${e.message} - trying to update`);
@@ -61,17 +62,7 @@ async function run() {
         await github.git.deleteRef({ owner, repo, ref: `tags/${tag}` });
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
         console.log(`Updating the release`);
-        createReleaseResponse = await github.repos.updateRelease({
-          owner,
-          repo,
-          release_id: currentRelease.id,
-          tag_name: tag,
-          name: releaseName,
-          body: bodyFileContent || body,
-          draft,
-          prerelease,
-          target_commitish: commitish
-        });
+        createReleaseResponse = await github.repos.updateRelease({ ...params, release_id: currentRelease.id });
     }
 
     // Get the ID, html_url, and upload URL for the created Release from the response
