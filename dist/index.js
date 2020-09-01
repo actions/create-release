@@ -8813,17 +8813,17 @@ async function run() {
     }
 
     let createReleaseResponse;
+    const params = {
+      owner,
+      repo,
+      tag_name: tag,
+      name: releaseName,
+      body: bodyFileContent || body,
+      draft,
+      prerelease,
+      target_commitish: commitish
+    };
     try {
-        const params = {
-          owner,
-          repo,
-          tag_name: tag,
-          name: releaseName,
-          body: bodyFileContent || body,
-          draft,
-          prerelease,
-          target_commitish: commitish
-        };
         console.log("Trying to release with params:", params);
         // Create a release
         // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
