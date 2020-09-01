@@ -8833,7 +8833,7 @@ async function run() {
         console.log(`Release failed: ${e.message} - trying to update`);
         // Failed to create - maybe it already exists...
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
-        const currentRelease = await github.repos.getReleaseByTag({owner, repo, tag});
+        const currentRelease = (await github.repos.getReleaseByTag({owner, repo, tag})).data;
         console.log(`Current release:`, currentRelease);
         if (!currentRelease) throw e;
 
