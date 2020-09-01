@@ -52,6 +52,8 @@ async function run() {
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
         const currentRelease = await github.repos.getReleaseByTag({owner, repo, tag});
         if (!currentRelease) throw e;
+        // Delete the tag
+        await github.repos.deleteRef({ owner, repo, ref: `tags/${tag}` });
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
         createReleaseResponse = await github.repos.updateRelease({
           owner,
