@@ -8814,7 +8814,7 @@ async function run() {
 
     let createReleaseResponse;
     try {
-        core.info("Trying to release (new)...");
+        console.log("Trying to release (new)...");
         // Create a release
         // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
@@ -8830,18 +8830,18 @@ async function run() {
         });
     }
     catch (e) {
-        core.info(`Release failed: ${e.message} - trying to update`);
+        console.log(`Release failed: ${e.message} - trying to update`);
         // Failed to create - maybe it already exists...
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
         const currentRelease = await github.repos.getReleaseByTag({owner, repo, tag});
-        core.info(`Current release:`, currentRelease);
+        console.log(`Current release:`, currentRelease);
         if (!currentRelease) throw e;
 
-        core.info(`Deleting the tag`);
+        console.log(`Deleting the tag`);
         // Delete the tag
         await github.repos.deleteRef({ owner, repo, ref: `tags/${tag}` });
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
-        core.info(`Updating the release`);
+        console.log(`Updating the release`);
         createReleaseResponse = await github.repos.updateRelease({
           owner,
           repo,
