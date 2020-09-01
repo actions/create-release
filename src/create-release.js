@@ -58,7 +58,7 @@ async function run() {
 
         console.log(`Deleting the tag`);
         // Delete the tag
-        await github.repos.deleteRef({ owner, repo, ref: `tags/${tag}` });
+        await github.git.deleteRef({ owner, repo, ref: `tags/${tag}` });
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
         console.log(`Updating the release`);
         createReleaseResponse = await github.repos.updateRelease({
