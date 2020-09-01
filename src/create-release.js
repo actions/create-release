@@ -31,19 +31,40 @@ async function run() {
       }
     }
 
-    // Create a release
-    // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
-    // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
-    const createReleaseResponse = await github.repos.createRelease({
-      owner,
-      repo,
-      tag_name: tag,
-      name: releaseName,
-      body: bodyFileContent || body,
-      draft,
-      prerelease,
-      target_commitish: commitish
-    });
+    let createReleaseResponse;
+    try {
+        // Create a release
+        // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
+        createReleaseResponse = await github.repos.createRelease({
+          owner,
+          repo,
+          tag_name: tag,
+          name: releaseName,
+          body: bodyFileContent || body,
+          draft,
+          prerelease,
+          target_commitish: commitish
+        });
+    }
+    catch (e) {
+        // Failed to create - maybe it already exists...
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-get-release-by-tag
+        const currentRelease = await github.repos.getReleaseByTag({owner, repo, tag});
+        if (!currentRelease) throw e;
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
+        createReleaseResponse = await github.repos.updateRelease({
+          owner,
+          repo,
+          release_id: currentRelease.id,
+          tag_name: tag,
+          name: releaseName,
+          body: bodyFileContent || body,
+          draft,
+          prerelease,
+          target_commitish: commitish
+        });
+    }
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
