@@ -60,10 +60,13 @@ async function run() {
         console.log(`Deleting the tag`);
         // Delete the tag
         await github.git.deleteRef({ owner, repo, ref: `tags/${tag}` });
-        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-update-release
-        console.log(`Updating the release`);
-        createReleaseResponse = await github.repos.updateRelease({ ...params, release_id: currentRelease.id });
+        // Delete the release
+        await github.repos.deleteRelease({ owner, repo, release_id: currentRelease.id });
+        // and recreate
+        createReleaseResponse = await github.repos.createRelease(params);
     }
+
+    console.log(`End result: `, createReleaseResponse);
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
