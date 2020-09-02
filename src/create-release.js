@@ -5,9 +5,13 @@ const fs = require('fs');
 const MAX_SUB_VERSION = 100;
 async function getCurrentRelease(github, owner, repo, tag, version = 0) {
   if (version >= MAX_SUB_VERSION) return null;
-  const currentRelease = (await github.repos.getReleaseByTag({ owner, repo, tag: `${tag}.${version}` })).data;
-  if (currentRelease) return currentRelease;
-  return getCurrentRelease(github, owner, repo, tag, version + 1);
+  try {
+    const currentRelease = (await github.repos.getReleaseByTag({ owner, repo, tag: `${tag}.${version}` })).data;
+    return currentRelease;
+  }
+  catch (e) {
+    return getCurrentRelease(github, owner, repo, tag, version + 1);
+  }
 }
 
 async function run() {
