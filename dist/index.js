@@ -8833,10 +8833,12 @@ async function run() {
       target_commitish: commitish
     };
     try {
-      console.log(`See if that tag exists first...`);
+      console.log(`See if the tag ${tag}.${v} exists first...`);
       const tags = await github.git.listMatchingRefs({ owner, repo, ref: `tags/${tag}.${v}` });
       if (tags && tags.length) {
         throw new Error(`Tags with that prefix exist. Do the dance. ${JSON.stringify(tags)}`);
+      } else {
+        console.log(`All I got was: `, tags);
       }
       console.log('Trying to release with params:', params);
       // Create a release

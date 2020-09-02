@@ -1,0 +1,31 @@
+name: Push Release and Tag
+
+on:
+  push:
+    branches: [ master ]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: get release
+        run: echo "::set-env name=current_release::$(<env/CURRENT_RELEASE)"
+
+      - name: Get version
+        run: echo 'The selected version is' $current_release
+
+      - name: Create Release
+        id: create_release
+        uses: idealdotcom/create-release@main 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          release: ${current_release}
+        with:
+          tag_name: v${{ env.current_release }}
+          release_name: v${{ env.current_release }}
+          draft: false
+          prerelease: false
