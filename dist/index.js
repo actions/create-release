@@ -8833,6 +8833,11 @@ async function run() {
       target_commitish: commitish
     };
     try {
+      console.log(`See if that tag exists first...`);
+      const tags = await github.git.listMatchingRefs({ owner, repo, refs: `${tag}.` });
+      if (tags && tags.length) {
+        throw new Error(`Tags with that prefix exist. Do the dance. ${JSON.stringify(tags)}`);
+      }
       console.log('Trying to release with params:', params);
       // Create a release
       // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
