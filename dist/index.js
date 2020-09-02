@@ -8834,7 +8834,7 @@ async function run() {
     };
     try {
       console.log(`See if that tag exists first...`);
-      const tags = await github.git.listMatchingRefs({ owner, repo, ref: `${tag}.` });
+      const tags = await github.git.listMatchingRefs({ owner, repo, ref: `tags/${tag}.` });
       if (tags && tags.length) {
         throw new Error(`Tags with that prefix exist. Do the dance. ${JSON.stringify(tags)}`);
       }
