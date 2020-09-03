@@ -57,7 +57,7 @@ async function run() {
     };
     try {
       console.log(`See if the tag ${tag}.${v} exists first...`);
-      const tags = (await github.git.listMatchingRefs({ owner, repo, ref: `tags/${tag}.${v}` })).data;
+      const tags = (await github.git.listMatchingRefs({ owner, repo, ref: `tags/${tag}.` })).data;
       if (tags && tags.length) {
         throw new Error(`Tags with that prefix exist. Do the dance. ${JSON.stringify(tags)}`);
       } else {
@@ -92,13 +92,14 @@ async function run() {
 
     // Get the ID, html_url, and upload URL for the created Release from the response
     const {
-      data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
+      data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl, tag_name: releaseTagName }
     } = createReleaseResponse;
 
     // Set the output variables for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('id', releaseId);
     core.setOutput('html_url', htmlUrl);
     core.setOutput('upload_url', uploadUrl);
+    core.exportVariable('RELEASE_TAG', releaseTagName);
   } catch (error) {
     core.setFailed(error.message);
   }
