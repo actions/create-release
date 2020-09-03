@@ -31,4 +31,4 @@ jobs:
 
       - name: Get release again
         id: get_again
-        run: echo "release_version: $RELEASE_VERSION"
+        run: echo "release_version: $RELEASE_TAG"
