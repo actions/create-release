@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint \"src/**.js\" \"tests/**.js\" --fix",
     "test": "eslint \"src/**.js\" \"tests/**.js\" && jest --coverage",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "build": "ncc build src/main.js",
     "precommit": "npm run build && git add dist/"
   },
