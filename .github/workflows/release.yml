@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: get release
-        run: echo "::set-env name=current_release::$(<env/CURRENT_RELEASE)"
+        run: echo "current_release=$(<env/CURRENT_RELEASE)" >> $GITHUB_ENV
 
       - name: Get version
         run: echo 'The selected version is' $current_release
@@ -21,6 +21,7 @@ jobs:
         id: create_release
         uses: idealdotcom/create-release@main 
         env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           release: ${current_release}
         with:
