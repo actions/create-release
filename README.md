@@ -4,8 +4,8 @@
 repository is here and you can use it as an example, or in Actions. However please be aware that 
 we are not going to be updating issues or pull requests on this repository.
 
-**Maintained forks:**
-* ...
+**Maintained Actions:**
+* [elgohr/Github-Release-Action](https://github.com/elgohr/Github-Release-Action)
 
 To reflect this state we’ve marked this repository as Archived.
 
