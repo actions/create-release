@@ -54,6 +54,7 @@ async function run() {
 
     // Set the output variables for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('id', releaseId);
+    core.setOutput('tag_name', tag);
     core.setOutput('html_url', htmlUrl);
     core.setOutput('upload_url', uploadUrl);
   } catch (error) {

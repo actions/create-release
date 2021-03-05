@@ -15,6 +15,7 @@ describe('Create Release', () => {
     createRelease = jest.fn().mockReturnValueOnce({
       data: {
         id: 'releaseId',
+        tag_name: 'tagName',
         html_url: 'htmlUrl',
         upload_url: 'uploadUrl'
       }
@@ -154,7 +155,7 @@ describe('Create Release', () => {
     });
   });
 
-  test('Outputs are set', async () => {
+  test('Outputs are set v1.0.0', async () => {
     core.getInput = jest
       .fn()
       .mockReturnValueOnce('refs/tags/v1.0.0')
@@ -168,8 +169,28 @@ describe('Create Release', () => {
     await run();
 
     expect(core.setOutput).toHaveBeenNthCalledWith(1, 'id', 'releaseId');
-    expect(core.setOutput).toHaveBeenNthCalledWith(2, 'html_url', 'htmlUrl');
-    expect(core.setOutput).toHaveBeenNthCalledWith(3, 'upload_url', 'uploadUrl');
+    expect(core.setOutput).toHaveBeenNthCalledWith(2, 'tag_name', 'v1.0.0');
+    expect(core.setOutput).toHaveBeenNthCalledWith(3, 'html_url', 'htmlUrl');
+    expect(core.setOutput).toHaveBeenNthCalledWith(4, 'upload_url', 'uploadUrl');
+  });
+
+  test('Outputs are set v2.0.0', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v2.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('myBody')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false');
+
+    core.setOutput = jest.fn();
+
+    await run();
+
+    expect(core.setOutput).toHaveBeenNthCalledWith(1, 'id', 'releaseId');
+    expect(core.setOutput).toHaveBeenNthCalledWith(2, 'tag_name', 'v2.0.0');
+    expect(core.setOutput).toHaveBeenNthCalledWith(3, 'html_url', 'htmlUrl');
+    expect(core.setOutput).toHaveBeenNthCalledWith(4, 'upload_url', 'uploadUrl');
   });
 
   test('Action fails elegantly', async () => {
