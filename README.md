@@ -85,10 +85,24 @@ jobs:
           prerelease: false
 ```
 
-This will create a [Release](https://help.github.com/en/articles/creating-releases), as well as a [`release` event](https://developer.github.com/v3/activity/events/types/#releaseevent), which could be handled by a third party service, or by GitHub Actions for additional uses, for example the [`@actions/upload-release-asset`](https://www.github.com/actions/upload-release-asset) GitHub Action. This uses the `GITHUB_TOKEN` provided by the [virtual environment](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#github_token-secret), so no new token is needed.
+This will create a [Release](https://help.github.com/en/articles/creating-releases), as well as a [`release` event](https://developer.github.com/v3/activity/events/types/#releaseevent) [<sup>1</sup>](#clarification-on-the-release-event-and-token-usage), which could be handled by a third party service, or by GitHub Actions for additional uses, for example the [`@actions/upload-release-asset`](https://www.github.com/actions/upload-release-asset) GitHub Action.
 
 ## Contributing
 We would love you to contribute to `@actions/create-release`, pull requests are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
 ## License
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+---
+## Clarification on the Release event and Token usage
+
+_Using the default `github.token` (or `secrets.GITHUB_TOKEN`), [will not trigger](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token) another workflow, which depends on the [`release`](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#release) event. i.e._
+
+```yaml
+on:
+  release:
+    types:
+      - published
+      ...
+```
+_If you want to make use of another workflow which depends on the release event that may be triggered by using this action, you will have to supply a personal access token secret for the `GITHUB_TOKEN` environment variable. For more information on creating a Personal Access Token, see the [docs](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)._
