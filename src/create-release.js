@@ -4,13 +4,13 @@ const fs = require('fs');
 
 async function run() {
   try {
-    // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
+    // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/main/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
 
     // Get owner and repo from context of payload that triggered the action
     const { owner: currentOwner, repo: currentRepo } = context.repo;
 
-    // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
+    // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/main/packages/core#inputsoutputs
     const tagName = core.getInput('tag_name', { required: true });
 
     // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
