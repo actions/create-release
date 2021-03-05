@@ -1,6 +1,9 @@
 jest.mock('@actions/core');
 jest.mock('@actions/github');
 jest.mock('fs');
+jest.mock('changelog-parser', () =>
+  jest.fn().mockReturnValue({ versions: [{ version: '0.4.1', body: '### Changed\n\n- Automate github releases' }] })
+);
 
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
@@ -148,6 +151,32 @@ describe('Create Release', () => {
       tag_name: 'v1.0.0',
       name: 'myRelease',
       body: '# this is a release\nThe markdown is strong in this one.',
+      draft: false,
+      prerelease: false,
+      target_commitish: 'sha'
+    });
+  });
+
+  test('Release tag and body based on changelog', async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce('refs/tags/v1.0.0')
+      .mockReturnValueOnce('myRelease')
+      .mockReturnValueOnce('') // <-- The default value for body in action.yml
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce('false')
+      .mockReturnValueOnce(null)
+      .mockReturnValueOnce('')
+      .mockReturnValueOnce('CHANGELOG.md');
+
+    await run();
+
+    expect(createRelease).toHaveBeenCalledWith({
+      owner: 'owner',
+      repo: 'repo',
+      tag_name: 'v0.4.1',
+      name: 'myRelease',
+      body: '### Changed\n\n- Automate github releases',
       draft: false,
       prerelease: false,
       target_commitish: 'sha'

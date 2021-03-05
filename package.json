@@ -23,7 +23,8 @@
   "dependencies": {
     "@actions/core": "^1.0.0",
     "@actions/exec": "^1.0.0",
-    "@actions/github": "^2.2.0"
+    "@actions/github": "^2.2.0",
+    "changelog-parser": "^2.8.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.4",
